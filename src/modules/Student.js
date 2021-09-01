@@ -1,94 +1,24 @@
-import { useState } from 'react';
+
 import  MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import StudentList from './StudentList';
 import userData from './data';
+import{useStudent}from './useStudent'
 
 
 const Student =()=>{
-    const [userInput, setUserInput] =useState([])
-    const [name , setName] = useState()
-    const[ email, setEmail] = useState()
-    const [city , setCity] = useState()
-    const [occupation, setOccupation]=useState()
-    const [bio, setBio]= useState();
-    const [errorMassage, setErrorMassage]= useState(false)
-    const [upDateIndex, setUpDateIndex]=useState()
-    const [flag ,setFlag] = useState(false)
-
- const  ctaHandler=()=>{
-     setErrorMassage('')
-     if(name!="" && email != "" && city!=""&& occupation!="" && bio!=""){
-        let newStudent={
-            name,
-            email,
-            city,
-            occupation,
-            bio
-        }
-        setUserInput([newStudent,...userInput])
-        setName('')
-        setEmail('')
-        setCity('')
-        setOccupation('')
-        setBio('')
-        
-     }else{
-         setErrorMassage('All feids require')
-     }
-      
-  }
-
-  const deleteHandler=(index)=>{
-    const newStd = userInput.filter((item,i)=>{
-        if(i != index){
-            return item
-        }
-    })
-    setUserInput([...newStd])
-  }
-
-  const upDateHandler=(item,index)=>{
-    setUpDateIndex(index);
-    setName(item.name);
-    setEmail(item.email);
-    setCity(item.city);
-    setOccupation(item.occupation);
-    setBio(item.bio);
-    setFlag(true);
-    
-  }
-
-  const ctaUpDateHandler =()=>{
-    setErrorMassage('')
-    if(name!="" && email != "" && city!=""&& occupation!="" && bio!=""){
-       let newStudent={
-           name,
-           email,
-           city,
-           occupation,
-           bio
-       }
-       setUserInput([newStudent,...userInput])
-       setName('')
-       setEmail('')
-       setCity('')
-       setOccupation('')
-       setBio('')
-       
-    }else{
-        setErrorMassage('All feids require')
-    }
   
-}
-
+const [userInput, setUserInput,name , setName,email,
+    setEmail,city , setCity,occupation, setOccupation,
+    bio, setBio,errorMassage, setErrorMassage,
+    upDateIndex, setUpDateIndex,flag ,setFlag,ctaUpDateHandler,upDateHandler,deleteHandler,
+    ctaHandler]=useStudent()
     return (
        <MuiThemeProvider>
            <div>
-           <AppBar title="Student Information"/>
+           
            <br></br>
            <TextField
         hintText="Enter Your Name"
@@ -128,13 +58,13 @@ const Student =()=>{
         {flag?
         <RaisedButton
         label="UpDate"
-        primary={true}
+        
         style={style.button}
         onClick={ctaUpDateHandler}
         />:
         <RaisedButton
         label="Submit"
-        primary={true}
+        color={true}
         style={style.button}
         onClick={ctaHandler}
         />
@@ -189,7 +119,9 @@ const Student =()=>{
 }
 const style={
     button:{
-        margin:15
+        margin:15,
+        background:'#3F51B5',
+        font:"20px"
     }
 }
 
